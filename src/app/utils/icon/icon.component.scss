@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  use,
+  svg {
+    display: block;
+    fill: currentColor;
+  }
+}
