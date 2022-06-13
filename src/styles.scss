@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./src/variables";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; // 1rem = 10px
+
+  @media only screen and (max-width: $bp-large) {
+    font-size: 50%;
+  }
+}
+
+body {
+  background-color: #303030;
+  font-family: "Nunito", sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+}
