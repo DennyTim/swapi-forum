@@ -5,6 +5,7 @@ import {
     RouterModule,
     Routes,
 } from "@angular/router";
+import { ReactiveComponentModule } from "@ngrx/component";
 import { PlanetsListComponent } from "./components/planets-list/planets-list.component";
 import { PlanetsComponent } from "./planets.component";
 
@@ -31,7 +32,8 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         MatCardModule,
-    ],
+        ReactiveComponentModule
+    ]
 })
 export class PlanetsModule {
 }

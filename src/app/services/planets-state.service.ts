@@ -1,24 +1,27 @@
 import { Injectable } from "@angular/core";
 import {
-    Observable,
-    of,
-} from "rxjs";
+    select,
+    Store,
+} from "@ngrx/store";
+import { Observable } from "rxjs";
 import { PlanetsModel } from "../models/planets.model";
+import { MainState } from "../store";
+import { loadPlanets } from "../store/actions/planets.action";
+import { selectAllPlanets } from "../store/selectors/planets.selector";
 
 @Injectable({
     providedIn: "root",
 })
 export class PlanetsStateService {
 
-    constructor() {
+    constructor(private store: Store<MainState>) {
     }
 
     public loadPlanets(): void {
-        // TODO: dispatch loading planets
+        this.store.dispatch(loadPlanets());
     }
 
     public getPlanets(): Observable<Partial<PlanetsModel[]>> {
-        // TODO: implement select for getting planets
-        return of([undefined]);
+        return this.store.pipe(select(selectAllPlanets));
     }
 }

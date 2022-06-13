@@ -3,6 +3,8 @@ import {
     Component,
     OnInit,
 } from "@angular/core";
+import { Observable } from "rxjs";
+import { PlanetsModel } from "../../../../models/planets.model";
 import { PlanetsStateService } from "../../../../services/planets-state.service";
 
 @Component({
@@ -12,13 +14,14 @@ import { PlanetsStateService } from "../../../../services/planets-state.service"
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlanetsListComponent implements OnInit {
-    public readonly allPlanets$ = this.planetsService.getPlanets();
+    public allPlanets$?: Observable<Partial<PlanetsModel[]>>;
 
     constructor(private planetsService: PlanetsStateService) {
     }
 
     ngOnInit(): void {
         this.planetsService.loadPlanets();
+        this.allPlanets$ = this.planetsService.getPlanets();
     }
 
 }

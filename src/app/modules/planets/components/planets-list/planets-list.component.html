@@ -1,24 +1,32 @@
-<div class="planets">
-    <a class="planet-card">
-        <mat-card>
-            <mat-card-header class="planet-card__header">
-                <mat-card-title>Planet name</mat-card-title>
-            </mat-card-header>
-            <img
-                mat-card-image
-                src="https://starwars-visualguide.com/assets/img/planets/12.jpg"
-                alt="planet"
-            >
-            <mat-card-content>
-                <p>
-                    <span>Climate: </span>
-                    <span>planet climate</span>
-                </p>
-                <p>
-                    <span>Population</span>
-                    <span>plane population</span>
-                </p>
-            </mat-card-content>
-        </mat-card>
-    </a>
+<div
+    *ngIf="allPlanets$ | async; let allPlanets"
+    class="planets"
+>
+    <ng-container *ngFor="let planet of allPlanets">
+        <a
+            *ngIf="planet"
+            class="planet-card"
+        >
+            <mat-card>
+                <mat-card-header class="planet-card__header">
+                    <mat-card-title>{{ planet.name }}</mat-card-title>
+                </mat-card-header>
+                <img
+                    mat-card-image
+                    src="{{ planet.imageUrl }}"
+                    alt="Photo of {{ planet.name }}"
+                >
+                <mat-card-content>
+                    <p>
+                        <span>Climate: &nbsp;</span>
+                        <span>{{ planet.climate }}</span>
+                    </p>
+                    <p>
+                        <span>Population: &nbsp;</span>
+                        <span>{{ planet.population }}</span>
+                    </p>
+                </mat-card-content>
+            </mat-card>
+        </a>
+    </ng-container>
 </div>
