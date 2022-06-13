@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+} from "@angular/core";
 
 @Component({
-  selector: 'app-planets',
-  templateUrl: './planets.component.html',
-  styleUrls: ['./planets.component.scss']
+    selector: "app-planets",
+    templateUrl: "./planets.component.html",
+    styleUrls: ["./planets.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlanetsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class PlanetsComponent {
 }
