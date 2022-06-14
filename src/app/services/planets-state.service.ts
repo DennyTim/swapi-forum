@@ -6,8 +6,14 @@ import {
 import { Observable } from "rxjs";
 import { PlanetsModel } from "../models/planets.model";
 import { MainState } from "../store";
-import { loadPlanets } from "../store/actions/planets.action";
-import { selectAllPlanets } from "../store/selectors/planets.selector";
+import {
+    loadPlanetById,
+    loadPlanets,
+} from "../store/actions/planets.action";
+import {
+    selectAllPlanets,
+    selectSelectedPlanet,
+} from "../store/selectors/planets.selector";
 
 @Injectable({
     providedIn: "root",
@@ -21,7 +27,15 @@ export class PlanetsStateService {
         this.store.dispatch(loadPlanets());
     }
 
+    public loadPlanetById(id: number): void {
+        this.store.dispatch(loadPlanetById({ id }));
+    }
+
     public getPlanets(): Observable<Partial<PlanetsModel[]>> {
         return this.store.pipe(select(selectAllPlanets));
+    }
+
+    public getPlanetById(): Observable<Partial<PlanetsModel>> {
+        return this.store.pipe(select(selectSelectedPlanet));
     }
 }

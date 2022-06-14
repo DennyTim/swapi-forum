@@ -1,0 +1,54 @@
+.planet-detail {
+  display: flex;
+
+  .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+    padding: 10px 0;
+    height: auto;
+  }
+
+  .mat-card {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .mat-list-item:last-of-type + mat-divider {
+    display: none;
+  }
+
+  &__card {
+    flex-basis: 30%;
+  }
+
+  &__options {
+    padding: 20px;
+    background: #424242;
+    flex-grow: 1;
+
+    &-title {
+      flex-basis: 30%;
+    }
+
+    &-value {
+      flex-grow: 1;
+    }
+
+    &-custom-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-custom-value {
+      color: #e91e63;
+      cursor: pointer;
+      transition: 0.4s ease-in-out;
+    }
+
+    &-custom-value:hover {
+      color: #fff;
+    }
+  }
+
+  &__avatar {
+    background-size: cover;
+  }
+}

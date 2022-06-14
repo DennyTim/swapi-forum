@@ -7,13 +7,13 @@
             *ngIf="planet"
             class="planet-card"
         >
-            <mat-card>
+            <mat-card (click)="handlePlanetDetails(planet.url)">
                 <mat-card-header class="planet-card__header">
                     <mat-card-title>{{ planet.name }}</mat-card-title>
                 </mat-card-header>
                 <img
                     mat-card-image
-                    src="{{ planet.imageUrl }}"
+                    [src]="planet?.imageUrl"
                     alt="Photo of {{ planet.name }}"
                 >
                 <mat-card-content>

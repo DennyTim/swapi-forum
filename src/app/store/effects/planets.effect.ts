@@ -11,8 +11,11 @@ import {
     map,
 } from "rxjs";
 import { PlanetsInfoModel } from "../../models/planets-state.model";
+import { PlanetsModel } from "../../models/planets.model";
 import { PlanetsRequestService } from "../../services/planets-request.service";
 import {
+    LoadPlanetByIdAction,
+    loadPlanetByIdSuccess,
     loadPlanetsSuccess,
     PlanetsAction,
 } from "../actions/planets.action";
@@ -25,17 +28,28 @@ export class PlanetsEffect {
     ) {
     }
 
-    loadPlanets$ = createEffect(
-        () => this.actions$.pipe(
-            ofType(PlanetsAction.loadPlanets),
-            exhaustMap(() => {
-                return this.planetsService.getPlanets().pipe(
-                    map((planetsInfo: PlanetsInfoModel) => {
-                        return loadPlanetsSuccess({ planetsInfo });
-                    }),
-                    catchError((error: Error) => EMPTY),
+    loadPlanets$ = createEffect(() => this.actions$.pipe(
+        ofType(PlanetsAction.loadPlanets),
+        exhaustMap(() => {
+            return this.planetsService.getPlanets().pipe(
+                catchError((error: Error) => EMPTY),
+                map((planetsInfo: PlanetsInfoModel) => {
+                    return loadPlanetsSuccess({ planetsInfo });
+                }),
+            );
+        }),
+    ));
+
+    loadPlanetById$ = createEffect(() => this.actions$.pipe(
+        ofType(PlanetsAction.loadPlanetById),
+        exhaustMap(({ id }: LoadPlanetByIdAction) => {
+            return this.planetsService.getPlanetById(id)
+                .pipe(
+                    catchError(() => EMPTY),
+                    map((planet: PlanetsModel) =>
+                        loadPlanetByIdSuccess({ selectedPlanet: planet }),
+                    ),
                 );
-            }),
-        ),
-    );
+        }),
+    ));
 }

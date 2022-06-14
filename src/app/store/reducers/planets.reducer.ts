@@ -4,8 +4,14 @@ import {
     on,
 } from "@ngrx/store";
 import { PlanetsStateModel } from "../../models/planets-state.model";
-import { loadPlanetsSuccess } from "../actions/planets.action";
-import { setPlanets } from "../helpers/planets.helpers";
+import {
+    loadPlanetByIdSuccess,
+    loadPlanetsSuccess,
+} from "../actions/planets.action";
+import {
+    setPlanets,
+    setSelectedPlanet,
+} from "../helpers/planets.helpers";
 
 const initialState: PlanetsStateModel = {
     planetsInfo: {},
@@ -16,6 +22,7 @@ const initialState: PlanetsStateModel = {
 const reducer = createReducer(
     initialState,
     on(loadPlanetsSuccess, setPlanets),
+    on(loadPlanetByIdSuccess, setSelectedPlanet),
 );
 
 export function planetsReducer(state: PlanetsStateModel | undefined, action: Action): PlanetsStateModel {

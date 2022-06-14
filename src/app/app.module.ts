@@ -14,6 +14,7 @@ import { AppComponent } from "./app.component";
 import { ErrorPageComponent } from "./components/error-page/error-page.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { HeaderComponent } from "./components/header/header.component";
+import { PipesModule } from "./pipes/pipes.module";
 import {
     effectList,
     mainReducer,

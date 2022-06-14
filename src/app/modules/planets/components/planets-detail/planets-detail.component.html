@@ -1,0 +1,33 @@
+<ng-container *ngIf="planetData$ | async as planetData">
+    <div class="planet-detail">
+        <mat-card class="planet-detail__card">
+            <mat-card-header>
+                <img
+                    mat-card-avatar
+                    class="planet-detail__avatar"
+                    [src]="planetData.imageUrl"
+                    [alt]="planetData.name"
+                />
+                <mat-card-title>{{ planetData.name }}</mat-card-title>
+            </mat-card-header>
+            <img
+                mat-card-image
+                [src]="planetData.imageUrl"
+                [alt]="planetData.name"
+            />
+        </mat-card>
+        <mat-list class="planet-detail__options">
+            <ng-container *ngFor="let param of planetsParams">
+                <mat-list-item
+                    *ngIf="planetData[param]"
+                    class="planet-detail__options-item"
+                >
+                    <p class="planet-detail__options-title">{{ param | titlecase }}</p>
+                    <p *ngIf="!(planetData[param] | isArray)">{{ planetData[param] }}</p>
+                </mat-list-item>
+            </ng-container>
+        </mat-list>
+    </div>
+</ng-container>
+
+

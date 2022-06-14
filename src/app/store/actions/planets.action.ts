@@ -3,11 +3,20 @@ import {
     props,
 } from "@ngrx/store";
 import { PlanetsInfoModel } from "../../models/planets-state.model";
+import { PlanetsModel } from "../../models/planets.model";
 
 export enum PlanetsAction {
     loadPlanets = '[Planets Page] Get Planets',
     loadPlanetsSuccess = '[Planets Page] Get Planets Success',
-    loadPlanetsFailure = '[Planets Page] Get Planets Failure'
+    loadPlanetsFailure = '[Planets Page] Get Planets Failure',
+    loadPlanetById = '[Planet Detail Page] Get Planet by Id',
+    loadPlanetByIdSuccess = '[Planet Detail Page] Get Planet by Id Success',
+    loadPlanetByIdFailure = '[Planet Detail Page] Get Planet by Id Failure',
+}
+
+export interface LoadPlanetByIdAction {
+    type: PlanetsAction.loadPlanetById;
+    id: number;
 }
 
 export const loadPlanets = createAction(
@@ -20,6 +29,21 @@ export const loadPlanetsSuccess = createAction(
 );
 
 export const loadPlanetsFailure = createAction(
-    PlanetsAction.loadPlanetsSuccess,
+    PlanetsAction.loadPlanetsFailure,
     props<{ error: unknown }>()
 );
+
+export const loadPlanetById = createAction(
+    PlanetsAction.loadPlanetById,
+    props<Pick<LoadPlanetByIdAction, 'id'>>()
+);
+
+export const loadPlanetByIdSuccess = createAction(
+    PlanetsAction.loadPlanetByIdSuccess,
+    props<{ selectedPlanet: PlanetsModel }>()
+)
+
+export const loadPlanetByIdFailure = createAction(
+    PlanetsAction.loadPlanetByIdFailure,
+    props<{ error: unknown }>()
+)
