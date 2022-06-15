@@ -6,7 +6,6 @@ import {
 import {
     map,
     Observable,
-    of,
 } from "rxjs";
 import { PlanetsModel } from "../models/planets.model";
 import { MainState } from "../store";
@@ -15,6 +14,7 @@ import {
     loadPlanetById,
     loadPlanets,
 } from "../store/actions/planets.action";
+import { selectLoadingStatus } from "../store/selectors/loading.selector";
 import {
     getPlanetNextUrl,
     selectAllPlanets,
@@ -51,11 +51,10 @@ export class PlanetsStateService {
 
     public getNextUrl(): Observable<boolean> {
         return this.store.pipe(select(getPlanetNextUrl))
-            .pipe(map((data: string) => !!data))
+            .pipe(map((data: string) => !!data));
     }
 
     public getLoadingStatus(): Observable<boolean> {
-        // TODO: implement Loading status
-        return of(false);
+        return this.store.pipe(select(selectLoadingStatus));
     }
 }
