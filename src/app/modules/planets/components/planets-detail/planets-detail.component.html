@@ -23,11 +23,32 @@
                     class="planet-detail__options-item"
                 >
                     <p class="planet-detail__options-title">{{ param | titlecase }}</p>
-                    <p *ngIf="!(planetData[param] | isArray)">{{ planetData[param] }}</p>
+                    <p
+                        *ngIf="!(planetData[param] | isArray)"
+                        class="planet-detail__options-value"
+                    >{{ planetData[param] }}</p>
                 </mat-list-item>
             </ng-container>
+            <mat-list-item
+                *ngIf="planetData?.residents"
+                class="planet-detail__options-item"
+            >
+                <p class="planet-detail__options-title">Residents</p>
+                <div
+                    *ngIf="planetData?.residents; else emptyList"
+                    class="planet-detail__options-custom-list"
+                >
+                    <ng-container *ngFor="let person of planetData?.residents">
+                        <p class="planet-detail__options-custom-value">{{ person.name }}</p>
+                    </ng-container>
+                </div>
+            </mat-list-item>
         </mat-list>
     </div>
 </ng-container>
+
+<ng-template #emptyList>
+    <p class="planet-detail__options-value">Residents aren't exist</p>
+</ng-template>
 
 

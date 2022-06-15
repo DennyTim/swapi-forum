@@ -8,6 +8,7 @@ import {
     select,
     Store,
 } from "@ngrx/store";
+import { cloneDeep } from "lodash";
 import {
     catchError,
     EMPTY,
@@ -17,6 +18,7 @@ import {
     of,
     withLatestFrom,
 } from "rxjs";
+import { PersonsModel } from "../../models/persons.model";
 import { PlanetsInfoModel } from "../../models/planets-state.model";
 import { PlanetsModel } from "../../models/planets.model";
 import { PlanetsRequestService } from "../../services/planets-request.service";
@@ -55,12 +57,22 @@ export class PlanetsEffect {
     loadPlanetById$ = createEffect(() => this.actions$.pipe(
         ofType(PlanetsAction.loadPlanetById),
         exhaustMap(({ id }: LoadPlanetByIdAction) => {
-            return this.planetsService.getPlanetById(id)
+            return this.planetsService.getPlanetById(id).pipe(
+                catchError((error: Error) => EMPTY),
+            );
+        }),
+        exhaustMap((planet: PlanetsModel) => {
+            return this.planetsService.getPersonsByPlanet(planet.residents as unknown as string[])
                 .pipe(
-                    catchError(() => EMPTY),
-                    map((planet: PlanetsModel) =>
-                        loadPlanetByIdSuccess({ selectedPlanet: planet }),
-                    ),
+                    catchError((error: Error) => EMPTY),
+                    map((residents: PersonsModel[]) => {
+                        return loadPlanetByIdSuccess({
+                            selectedPlanet: cloneDeep({
+                                ...planet,
+                                residents: residents as any,
+                            }),
+                        });
+                    }),
                 );
         }),
     ));

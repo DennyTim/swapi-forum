@@ -11,7 +11,7 @@ export interface PlanetsModel {
     terrain: string;
     surface_water: number;
     population: number;
-    residents: string[] | PersonsModel;
+    residents: PersonsModel[];
     films: string;
     created: string;
     edited: string;

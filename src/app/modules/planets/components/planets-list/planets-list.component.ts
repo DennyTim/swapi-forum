@@ -40,7 +40,7 @@ export class PlanetsListComponent implements OnInit {
         this.planetsService.getMorePlanets();
     }
 
-    public trackById(_: number, item: PlanetsModel): string {
+    public trackById(_: number, item: any): any {
         return item.id;
     }
 
