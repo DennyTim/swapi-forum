@@ -30,17 +30,37 @@
         </a>
     </ng-container>
 </div>
-<ng-container *ngIf="isLoadMoreHidden$ | async">
-    <div class="planets-toolbar">
+
+<ng-template
+    #toolbarTmpl
+    let-isLoadMoreHidden="isLoadMoreHidden"
+    let-loadingStatus="loadingStatus"
+>
+    <div
+        *ngIf="isLoadMoreHidden"
+        class="planets-toolbar"
+    >
         <button
             mat-raised-button
+            *ngIf="!loadingStatus"
             color="primary"
             (click)="loadPlanets()"
-        ></button>
-        <!--        <mat-spinner-->
-        <!--            color="primary"-->
-        <!--            mode="indeterminate"-->
-        <!--            [diameter]="30"-->
-        <!--        ></mat-spinner>-->
+        >Load more</button>
+        <mat-spinner
+            color="primary"
+            *ngIf="loadingStatus"
+            mode="indeterminate"
+            [diameter]="30"
+        ></mat-spinner>
     </div>
-</ng-container>
+</ng-template>
+
+<ng-container
+    *ngTemplateOutlet="
+        toolbarTmpl;
+        context: {
+            isLoadMoreHidden: isLoadMoreHidden$ | async,
+            loadingStatus: loadingStatus$ | async
+        }
+    "
+></ng-container>

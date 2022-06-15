@@ -26,3 +26,34 @@ body {
   font-weight: 300;
   line-height: 1.6;
 }
+
+/**
+* TOP LOADER
+*
+* @section loading-service.ts
+*/
+.top-loader {
+  position: fixed;
+  top: 9%;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  z-index: 10000;
+  opacity: 0;
+  background: linear-gradient(to right, #ff4893 25%, #9e9494 75%, #424242);
+  transition: transform 0.5s ease 0s, opacity 0s ease 0.6s;
+  transform-origin: 0 0;
+  transform: scaleX(1);
+
+  &._loading-start {
+    transform: scaleX(0);
+    opacity: 1;
+    transition: none;
+  }
+
+  &._loading {
+    transition: transform 20s cubic-bezier(0, 1, .3, .87) 0s;
+    transform: scaleX(0.9);
+    opacity: 1;
+  }
+}

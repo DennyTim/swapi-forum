@@ -1,5 +1,8 @@
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import {
+    HTTP_INTERCEPTORS,
+    HttpClientModule,
+} from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
@@ -14,7 +17,7 @@ import { AppComponent } from "./app.component";
 import { ErrorPageComponent } from "./components/error-page/error-page.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { HeaderComponent } from "./components/header/header.component";
-import { PipesModule } from "./pipes/pipes.module";
+import { LoadingInterceptor } from "./services/loading.interceptor";
 import {
     effectList,
     mainReducer,
@@ -43,7 +46,13 @@ import { IconModule } from "./utils/icon/icon.module";
         MatToolbarModule,
         ReactiveComponentModule,
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoadingInterceptor,
+            multi: true,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {
