@@ -36,6 +36,14 @@ export class PlanetsListComponent implements OnInit {
         this.isLoadMoreHidden$ = this.planetsService.getNextUrl();
     }
 
+    public loadPlanets(): void {
+        this.planetsService.getMorePlanets();
+    }
+
+    public trackById(_: number, item: PlanetsModel): string {
+        return item.id;
+    }
+
     public async handlePlanetDetails(planetUrl: string): Promise<void> {
 
         const planetParams = planetUrl
@@ -62,9 +70,5 @@ export class PlanetsListComponent implements OnInit {
         } catch (err) {
             console.error(`This error occurred in routing process with following error: `, err);
         }
-    }
-
-    public loadPlanets(): void {
-        this.planetsService.getMorePlanets();
     }
 }

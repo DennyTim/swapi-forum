@@ -2,7 +2,7 @@
     *ngIf="allPlanets$ | async; let allPlanets"
     class="planets"
 >
-    <ng-container *ngFor="let planet of allPlanets">
+    <ng-container *ngFor="let planet of allPlanets; trackBy: trackById">
         <a
             *ngIf="planet"
             class="planet-card"
