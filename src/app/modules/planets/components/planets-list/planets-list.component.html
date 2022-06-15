@@ -30,3 +30,17 @@
         </a>
     </ng-container>
 </div>
+<ng-container *ngIf="isLoadMoreHidden$ | async">
+    <div class="planets-toolbar">
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="loadPlanets()"
+        ></button>
+        <!--        <mat-spinner-->
+        <!--            color="primary"-->
+        <!--            mode="indeterminate"-->
+        <!--            [diameter]="30"-->
+        <!--        ></mat-spinner>-->
+    </div>
+</ng-container>

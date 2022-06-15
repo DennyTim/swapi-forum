@@ -2,7 +2,7 @@ import { PlanetsModel } from "./planets.model";
 
 export interface PlanetsInfoModel {
     count: number;
-    next: Partial<string>;
+    next: string;
     previous: Partial<string>;
     results: PlanetsModel[];
 }

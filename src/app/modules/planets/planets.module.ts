@@ -1,7 +1,9 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatListModule } from "@angular/material/list";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import {
     RouterModule,
     Routes,
@@ -41,6 +43,8 @@ const routes: Routes = [
         ReactiveComponentModule,
         MatListModule,
         PipesModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
     ],
     declarations: [
         PlanetsComponent,

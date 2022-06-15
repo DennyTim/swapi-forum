@@ -3,14 +3,20 @@ import {
     select,
     Store,
 } from "@ngrx/store";
-import { Observable } from "rxjs";
+import {
+    map,
+    Observable,
+    of,
+} from "rxjs";
 import { PlanetsModel } from "../models/planets.model";
 import { MainState } from "../store";
 import {
+    loadMorePlanets,
     loadPlanetById,
     loadPlanets,
 } from "../store/actions/planets.action";
 import {
+    getPlanetNextUrl,
     selectAllPlanets,
     selectSelectedPlanet,
 } from "../store/selectors/planets.selector";
@@ -31,11 +37,25 @@ export class PlanetsStateService {
         this.store.dispatch(loadPlanetById({ id }));
     }
 
+    public getMorePlanets(): void {
+        this.store.dispatch(loadMorePlanets());
+    }
+
     public getPlanets(): Observable<Partial<PlanetsModel[]>> {
         return this.store.pipe(select(selectAllPlanets));
     }
 
     public getPlanetById(): Observable<Partial<PlanetsModel>> {
         return this.store.pipe(select(selectSelectedPlanet));
+    }
+
+    public getNextUrl(): Observable<boolean> {
+        return this.store.pipe(select(getPlanetNextUrl))
+            .pipe(map((data: string) => !!data))
+    }
+
+    public getLoadingStatus(): Observable<boolean> {
+        // TODO: implement Loading status
+        return of(false);
     }
 }

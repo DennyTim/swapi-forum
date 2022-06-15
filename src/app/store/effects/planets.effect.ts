@@ -5,25 +5,37 @@ import {
     ofType,
 } from "@ngrx/effects";
 import {
+    select,
+    Store,
+} from "@ngrx/store";
+import {
     catchError,
     EMPTY,
     exhaustMap,
+    iif,
     map,
+    of,
+    withLatestFrom,
 } from "rxjs";
 import { PlanetsInfoModel } from "../../models/planets-state.model";
 import { PlanetsModel } from "../../models/planets.model";
 import { PlanetsRequestService } from "../../services/planets-request.service";
 import {
+    loadMorePlanetsFailure,
+    loadMorePlanetsSuccess,
     LoadPlanetByIdAction,
     loadPlanetByIdSuccess,
     loadPlanetsSuccess,
     PlanetsAction,
 } from "../actions/planets.action";
+import { MainState } from "../index";
+import { getPlanetNextUrl } from "../selectors/planets.selector";
 
 @Injectable()
 export class PlanetsEffect {
     constructor(
         private actions$: Actions,
+        private store: Store<MainState>,
         private planetsService: PlanetsRequestService,
     ) {
     }
@@ -50,6 +62,24 @@ export class PlanetsEffect {
                         loadPlanetByIdSuccess({ selectedPlanet: planet }),
                     ),
                 );
+        }),
+    ));
+
+    loadMorePlanets$ = createEffect(() => this.actions$.pipe(
+        ofType(PlanetsAction.loadMorePlanets),
+        withLatestFrom(this.store.pipe(select(getPlanetNextUrl))),
+        exhaustMap(([_, url]: [PlanetsAction.loadMorePlanets, string]) => {
+            return iif(
+                () => !!url,
+                this.planetsService.getPlanetsByUrl(url)
+                    .pipe(
+                        catchError(() => EMPTY),
+                        map((planetsInfo: PlanetsInfoModel) => {
+                            return loadMorePlanetsSuccess({ planetsInfo });
+                        }),
+                    ),
+                of(loadMorePlanetsFailure({ error: new Error(`Next url isn't exist`) })),
+            );
         }),
     ));
 }

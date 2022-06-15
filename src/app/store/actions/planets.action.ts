@@ -12,6 +12,9 @@ export enum PlanetsAction {
     loadPlanetById = '[Planet Detail Page] Get Planet by Id',
     loadPlanetByIdSuccess = '[Planet Detail Page] Get Planet by Id Success',
     loadPlanetByIdFailure = '[Planet Detail Page] Get Planet by Id Failure',
+    loadMorePlanets = '[Planet Page] Get More Planets',
+    loadMorePlanetsSuccess = '[Planet Page] Get More Planets Success',
+    loadMorePlanetsFailure = '[Planet Page] Get More Planets Failure'
 }
 
 export interface LoadPlanetByIdAction {
@@ -22,6 +25,10 @@ export interface LoadPlanetByIdAction {
 export const loadPlanets = createAction(
     PlanetsAction.loadPlanets
 );
+
+export const loadMorePlanets = createAction(
+    PlanetsAction.loadMorePlanets
+)
 
 export const loadPlanetsSuccess = createAction(
     PlanetsAction.loadPlanetsSuccess,
@@ -45,5 +52,15 @@ export const loadPlanetByIdSuccess = createAction(
 
 export const loadPlanetByIdFailure = createAction(
     PlanetsAction.loadPlanetByIdFailure,
+    props<{ error: unknown }>()
+)
+
+export const loadMorePlanetsSuccess = createAction(
+    PlanetsAction.loadMorePlanetsSuccess,
+    props<{ planetsInfo: PlanetsInfoModel }>()
+)
+
+export const loadMorePlanetsFailure = createAction(
+    PlanetsAction.loadMorePlanetsFailure,
     props<{ error: unknown }>()
 )

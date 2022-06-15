@@ -21,4 +21,8 @@ export class PlanetsRequestService {
     public getPlanetById(id: number): Observable<PlanetsModel> {
         return this.httpService.get<PlanetsModel>(`${environment.swapiUri}${this.planetsUri}/${id}/`)
     }
+
+    public getPlanetsByUrl(url: string): Observable<PlanetsInfoModel> {
+        return this.httpService.get<PlanetsInfoModel>(url);
+    }
 }

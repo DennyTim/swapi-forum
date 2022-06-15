@@ -19,6 +19,8 @@ import { PlanetsStateService } from "../../../../services/planets-state.service"
 })
 export class PlanetsListComponent implements OnInit {
     public allPlanets$?: Observable<Partial<PlanetsModel[]>>;
+    public loadingStatus$?: Observable<boolean>;
+    public isLoadMoreHidden$?: Observable<boolean>;
 
     constructor(
         private router: Router,
@@ -30,6 +32,8 @@ export class PlanetsListComponent implements OnInit {
     public ngOnInit(): void {
         this.planetsService.loadPlanets();
         this.allPlanets$ = this.planetsService.getPlanets();
+        this.loadingStatus$ = this.planetsService.getLoadingStatus();
+        this.isLoadMoreHidden$ = this.planetsService.getNextUrl();
     }
 
     public async handlePlanetDetails(planetUrl: string): Promise<void> {
@@ -58,5 +62,9 @@ export class PlanetsListComponent implements OnInit {
         } catch (err) {
             console.error(`This error occurred in routing process with following error: `, err);
         }
+    }
+
+    public loadPlanets(): void {
+        this.planetsService.getMorePlanets();
     }
 }

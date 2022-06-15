@@ -42,3 +42,17 @@ export const setSelectedPlanet = (
         }),
     };
 };
+
+export const addMorePlanets = (
+    state: PlanetsStateModel,
+    { planetsInfo }: Pick<PlanetsStateModel, "planetsInfo">,
+): PlanetsStateModel => {
+    return {
+        ...state,
+        planetsInfo: planetsInfo,
+        allPlanets: [
+            ...state.allPlanets,
+            ...populatePlanetsPhoto(planetsInfo)
+        ]
+    }
+}
