@@ -1,0 +1,69 @@
+<form
+    class="form-register"
+    [formGroup]="registerForm"
+    (ngSubmit)="register()"
+>
+    <h2 class="mat-title white form-title">Register user</h2>
+    <!-- Name -->
+    <div class="form-input">
+        <label class="form-label">Name</label>
+        <app-input
+            [control]="name"
+            placeholder="Enter Name"
+        ></app-input>
+    </div>
+    <!-- Email -->
+    <div class="form-input">
+        <label class="form-label">Email</label>
+        <app-input
+            [control]="email"
+            type="email"
+            placeholder="Enter Email"
+        ></app-input>
+    </div>
+    <!-- Age -->
+    <div class="form-input">
+        <label class="form-label">Age</label>
+        <app-input
+            [control]="age"
+            type="number"
+            placeholder="Enter Age"
+        ></app-input>
+    </div>
+    <!-- Password -->
+    <div class="form-input">
+        <label class="form-label">Password</label>
+        <app-input
+            [control]="password"
+            type="password"
+            placeholder="Enter Password"
+        ></app-input>
+    </div>
+    <!-- Confirm Password -->
+    <div class="form-input">
+        <label class="form-label">Confirm Password</label>
+        <app-input
+            [control]="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+        ></app-input>
+    </div>
+    <!-- Phone Number -->
+    <div class="form-input">
+        <label class="form-label">Phone Number</label>
+        <app-input
+            [control]="phoneNumber"
+            format="(000)000-0000"
+            placeholder="Enter Phone Number"
+        ></app-input>
+    </div>
+
+    <button
+        mat-button
+        class="form-btn__submit"
+        type="submit"
+        color="accent"
+        [disabled]="registerForm.invalid || inSubmission"
+    >Submit
+    </button>
+</form>

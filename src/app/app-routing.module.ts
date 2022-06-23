@@ -6,6 +6,7 @@ import {
     Routes,
 } from "@angular/router";
 import { ErrorPageComponent } from "./components/error-page/error-page.component";
+import { AuthModule } from "./modules/auth/auth.module";
 
 const appRoutes: Routes = [
     {
@@ -16,6 +17,10 @@ const appRoutes: Routes = [
     {
         path: "planets",
         loadChildren: () => import("./modules/planets/planets.module").then(m => m.PlanetsModule),
+    },
+    {
+        path: "auth",
+        loadChildren: () => import("./modules/auth/auth.module").then(m => m.AuthModule),
     },
     {
         path: "**",

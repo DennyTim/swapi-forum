@@ -4,6 +4,7 @@ import {
     HttpClientModule,
 } from "@angular/common/http";
 import { NgModule } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserModule } from "@angular/platform-browser";
 import { ReactiveComponentModule } from "@ngrx/component";
@@ -17,7 +18,8 @@ import { AppComponent } from "./app.component";
 import { ErrorPageComponent } from "./components/error-page/error-page.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { HeaderComponent } from "./components/header/header.component";
-import { LoadingInterceptor } from "./services/loading.interceptor";
+import { FakeAuthInterceptor } from "./interceptors/fake-auth.interceptor";
+import { LoadingInterceptor } from "./interceptors/loading.interceptor";
 import {
     effectList,
     mainReducer,
@@ -45,11 +47,17 @@ import { IconModule } from "./utils/icon/icon.module";
         }),
         MatToolbarModule,
         ReactiveComponentModule,
+        MatButtonModule,
     ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: LoadingInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: FakeAuthInterceptor,
             multi: true,
         },
     ],

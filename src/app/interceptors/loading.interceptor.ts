@@ -11,7 +11,7 @@ import {
     Observable,
     timer,
 } from "rxjs";
-import { LoadingService } from "./loading.service";
+import { LoadingService } from "../services/loading.service";
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {

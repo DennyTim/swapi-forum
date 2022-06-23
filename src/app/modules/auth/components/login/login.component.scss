@@ -1,0 +1,37 @@
+.form-register {
+  border-radius: 15px;
+  border: 1px solid #c2185b;
+  width: 40%;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.form-title {
+  padding: 0 10px;
+}
+
+.form-input {
+  padding: 10px;
+}
+
+.form-label {
+  font-size: 13px;
+  color: #c2185b;
+}
+
+.form-btn__submit {
+  border: 1px solid #c2185b;
+  display: block;
+  width: 200px;
+  margin: 10px auto 0;
+  padding: 10px;
+}
+
+.form-btn__submit:enabled {
+  background-color: #c2185b;
+  color: #fff;
+}
+
+.form-btn__submit:disabled {
+  color: rgba(255, 255, 255, 0.5);
+}
